@@ -32,9 +32,9 @@ print(guid.counter())
 print(guid.bytes())
 # Output: b'_5\x80\xca\xef\x1a4UV\x94AT'
 
-XID('bsqo1inf38q5alkk85a0')
+XID("bsqo1inf38q5alkk85a0")
 # Output: XID('bsqo1inf38q5alkk85a0')
 
-XID(b'_5\x80\xca\xef\x1a4UV\x94AT')
+XID(b"_5\x80\xca\xef\x1a4UV\x94AT")
 # Output: XID('bsqo1inf38q5alkk85a0')
 ```
