@@ -5,7 +5,7 @@ A Python 3.7+ port of [https://github.com/rs/xid](https://github.com/rs/xid).
 # Install
 
 ```shell script
-pip install python-xid
+pip install py-xid
 ```
 
 # Usage
