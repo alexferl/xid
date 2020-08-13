@@ -7,6 +7,7 @@ import os
 import platform
 import threading
 import time
+from typing import Union
 
 logger = logging.getLogger("xid")
 
@@ -56,7 +57,7 @@ class InvalidXID(Exception):
 
 
 class XID:
-    def __init__(self, id_: bytes = None, t: time.time = None):
+    def __init__(self, id_: Union[bytes, str] = None, t: time.time = None):
         if t is None:
             self.t = int(time.time())
         else:
@@ -65,7 +66,14 @@ class XID:
         if id_ is None:
             self.id = self._generate_new_xid(self.t)
         else:
-            self.id = id_
+            if isinstance(id_, bytes):
+                if len(id_) != RAW_LEN:
+                    raise InvalidXID()
+                self.id = id_
+            elif isinstance(id_, str):
+                self.id = self._decode(self, bytes(id_.encode("utf-8"))).id
+            else:
+                raise TypeError()
 
     @staticmethod
     def _generate_new_xid(t: time.time):
@@ -73,7 +81,6 @@ class XID:
 
         # Timestamp, 4 bytes, big endian
         id_[0:4] = t.to_bytes(4, byteorder="big")
-
         # Machine, first 3 bytes of md5(hostname)
         id_[4] = machine_id[0]
         id_[5] = machine_id[1]
@@ -205,17 +212,6 @@ class XID:
 
     def __gt__(self, other: XID) -> bool:
         return self.string() > other.string()
-
-
-def from_string(s: str) -> XID:
-    xid = XID()
-    return xid._decode(xid, bytes(s.encode("utf-8")))
-
-
-def from_bytes(b: bytes) -> XID:
-    if len(b) != RAW_LEN:
-        raise InvalidXID()
-    return XID(b)
 
 
 def _uint8(n: int) -> int:

@@ -10,7 +10,7 @@ pip install py-xid
 
 # Usage
 ```python
-from xid import XID, from_bytes, from_string
+from xid import XID
 
 guid = XID()
 
@@ -32,9 +32,9 @@ print(guid.counter())
 print(guid.bytes())
 # Output: b'_5\x80\xca\xef\x1a4UV\x94AT'
 
-from_string('bsqo1inf38q5alkk85a0')
+XID('bsqo1inf38q5alkk85a0')
 # Output: XID('bsqo1inf38q5alkk85a0')
 
-from_bytes(guid.bytes())
+XID(b'_5\x80\xca\xef\x1a4UV\x94AT')
 # Output: XID('bsqo1inf38q5alkk85a0')
 ```

@@ -1,6 +1,6 @@
 import pytest
 
-from xid import XID, InvalidXID, from_string, from_bytes
+from xid import XID, InvalidXID
 
 XIDs = [
     # taken from https://github.com/rs/xid/blob/master/id_test.go
@@ -76,35 +76,27 @@ def test_string():
     assert xid.string() == "9m4e2mr0ui3e8a215n4g"
 
 
-def test_encode():
-    xid = XID(
-        id_=bytes(
-            [0x4D, 0x88, 0xE1, 0x5B, 0x60, 0xF4, 0x86, 0xE4, 0x28, 0x41, 0x2D, 0xC9]
-        )
-    )
+def test_encode_from_string():
+    xid = XID(id_="9m4e2mr0ui3e8a215n4g")
     e = xid.encode()
     assert e.decode("utf-8") == "9m4e2mr0ui3e8a215n4g"
 
 
-def test_from_string():
-    assert from_string("9m4e2mr0ui3e8a215n4g").string() == "9m4e2mr0ui3e8a215n4g"
-
-
-def test_from_string_invalid():
+def test_encode_from_string_invalid():
     with pytest.raises(InvalidXID):
-        from_string("invalid").string()
+        XID(id_="invalid")
+
+
+def test_encode_from_bytes():
+    with pytest.raises(InvalidXID):
+        XID(id_=bytes([0xFF]))
 
 
 def test_from_bytes_invariant():
-    xid = XID()
-    b = from_bytes(xid.bytes())
+    xid1 = XID()
+    xid2 = XID(xid1.bytes())
 
-    assert b.bytes() == xid.bytes()
-
-
-def test_from_bytes_invalid():
-    with pytest.raises(InvalidXID):
-        from_bytes(bytes([0xFF]))
+    assert xid1.bytes() == xid2.bytes()
 
 
 def test_sort():
@@ -128,3 +120,8 @@ def test_pass_timestamp():
     t = 1234567890
     xid = XID(t=1234567890)
     assert xid.time() == t
+
+
+def test_pass_wrong_type():
+    with pytest.raises(TypeError):
+        XID(id_=[])
