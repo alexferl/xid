@@ -13,6 +13,6 @@ before_install:
   - pip install -U codecov
 install:
   - pip install -r dev_requirements.txt
-script: pytest --cov=./app
+script: pytest --cov=./xid
 after_success:
   - codecov
