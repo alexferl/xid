@@ -201,17 +201,32 @@ class XID:
     def bytes(self) -> bytes:
         return self.id
 
-    def __repr__(self):
-        return "XID('%s')" % self.__str__()
-
     def __str__(self):
         return self.string()
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other: XID) -> bool:
+        return self.string() == other.string()
+
+    def __ne__(self, other: XID) -> bool:
+        return self.string() != other.string()
 
     def __lt__(self, other: XID) -> bool:
         return self.string() < other.string()
 
+    def __le__(self, other: XID) -> bool:
+        return self.string() <= other.string()
+
     def __gt__(self, other: XID) -> bool:
         return self.string() > other.string()
+
+    def __ge__(self, other: XID) -> bool:
+        return self.string() >= other.string()
+
+    def __repr__(self):
+        return "XID('%s')" % self.__str__()
 
 
 def _uint8(n: int) -> int:

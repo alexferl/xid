@@ -99,14 +99,6 @@ def test_from_bytes_invariant():
     assert xid1.bytes() == xid2.bytes()
 
 
-def test_sort():
-    xid1 = XID()
-    xid2 = XID()
-
-    assert xid1 < xid2
-    assert xid2 > xid1
-
-
 def test_repr():
     xid = XID(
         id_=bytes(
@@ -125,3 +117,15 @@ def test_pass_timestamp():
 def test_pass_wrong_type():
     with pytest.raises(TypeError):
         XID(id_=[])
+
+
+def test_compare():
+    xid1 = XID()
+    xid2 = XID()
+
+    assert (xid1 == xid2) is False
+    assert xid1 != xid2
+    assert xid1 < xid2
+    assert xid1 <= xid2
+    assert xid2 > xid1
+    assert xid2 >= xid1
