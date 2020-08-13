@@ -1,4 +1,4 @@
-# xid
+# xid [![Build Status](https://travis-ci.com/alexferl/xid.svg?branch=master)](https://travis-ci.com/alexferl/xid) [![codecov](https://codecov.io/gh/alexferl/xid/branch/master/graph/badge.svg)](https://codecov.io/gh/alexferl/xid)
 
 A Python 3.7+ port of [https://github.com/rs/xid](https://github.com/rs/xid).
 
