@@ -43,7 +43,6 @@ def generate_next_id():
         yield new_id
 
 
-object_id_counter = rand_int()
 machine_id = read_machine_id()
 pid = os.getpid()
 xid_generator = generate_next_id()
