@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name="python-xid",
+    name="py-xid",
     version="0.1.0",
     description="",
     url="http://github.com/alexferl/xid",
