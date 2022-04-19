@@ -140,7 +140,7 @@ class XID:
         else:
             dec = DECODING_MAP
 
-        id_ = bytearray(ENCODED_LEN)
+        id_ = bytearray(RAW_LEN)
 
         if len(src) != ENCODED_LEN:
             raise InvalidXID()
