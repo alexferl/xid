@@ -129,3 +129,11 @@ def test_compare():
     assert xid1 <= xid2
     assert xid2 > xid1
     assert xid2 >= xid1
+
+
+def test_len_from_str():
+    xid1 = XID()
+    xid2 = xid1.bytes()
+    xid2_from_str = XID(xid1.string()).bytes()
+
+    assert len(xid2) == len(xid2_from_str)
