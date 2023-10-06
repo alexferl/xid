@@ -26,5 +26,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: pip install pytest-cov codecov
       - run: pip install -r requirements-dev.txt
-      - run: pytest --cov=./vyper
+      - run: pytest --cov=./xid
       - run: codecov
